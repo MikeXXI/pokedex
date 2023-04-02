@@ -1,139 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { Link} from 'react-router-dom';
-import { useParams } from "react-router";
-import ModalCard from './ModalCard';
-// import ReactDom from 'react-dom';
+import React from "react"
+import PokemonCard from "./PokemonCard";
+import { Grid } from "@mui/material";
 
-function Pokédex(lang, setLang) {
-    const { pokeId } = useParams();
-    const [pokemonData, setPokemonData] = useState([]);
-    //const [load, isLoad] = useState(true);
+function List({ pokemons, lang, dataType, search }) {
+    const pokedex = [];
+    pokemons.forEach((pokemon) => {
+        if (pokemon.names[lang].toLowerCase().includes(search.toLowerCase()) ||
+            pokemon.types[0].toUpperCase().includes(search.toUpperCase()) ||
+            (pokemon.types[1] ? pokemon.types[1].toUpperCase().includes(search.toUpperCase()) : false)) {
+            pokedex.push(<PokemonCard
+                key={pokemon.id}
+                id={pokemon.id}
+                name={pokemon.names[lang]}
+                image={pokemon.image}
+                type1={dataType[pokemon.types[0]].translations[lang]}
+                couleurType1={dataType[pokemon.types[0]].backgroundColor}
+                type2={pokemon.types[1] ? dataType[pokemon.types[1]].translations[lang] : undefined}
+                couleurType2={pokemon.types[1] ? dataType[pokemon.types[1]].backgroundColor : undefined}
 
-    useEffect(() => {
-
-        //isLoad(true)
-        fetch('https://pokedex-jgabriele.vercel.app/pokemons.json')
-            .then(response => response.json())
-            .then(data => {
-                //isLoad(false)
-                setPokemonData(data);
-            });
-    }, []);
-    const pokemonCard = pokemonData.map(pokemon =>
-        <PokemonCard id={pokemon.id} names={pokemon.names[lang]} image={pokemon.image} types={pokemon.types}></PokemonCard>
-    )
-    // height = {pokemon.height} weight = {pokemon.weight}
-    if (pokeId === undefined) {
-        return pokemonCard;
-    } else {
-        <ModalCard></ModalCard>
-        return pokemonCard[pokeId];
-    }
-}
-
-function PokemonCard(props) {
-
+            />)
+        }
+    })
     return (
-        <Link 
-        to={`/pokemon/${props.id-1}`}
-        sx={{
-            textDecoration: 'none',
-        }}>
-            <Card onMouseEnter={CardContent}
-                sx={{
-                    height: 300,
-                    width: 300
-                }}>
-                    N°{props.id}
-                <CardMedia
-                    sx={{
-                        height: 150,
-                        width: 125,
-                        margin: 'auto',
-                        position: 'center',
-                    }}
-                    image={props.image}
-                    title={props.names}
-                />
-                <CardContent >
-                    <Typography gutterBottom variant="h6" component="div">
-                        {props.names}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        <Button variant="outlined"
-                            sx={{
-                                color: "black",
-                                border: props.types[0] === null ? 0 : 0,
-                                backgroundColor: props.types[0] === "grass" ? "green"
-                                    : props.types[0] === "fire" ? "red"
-                                        : props.types[0] === "water" ? "blue"
-                                            : props.types[0] === "bug" ? "yellow"
-                                                : props.types[0] === "normal" ? "grey"
-                                                    : props.types[0] === "poison" ? "purple"
-                                                        : props.types[0] === "flying" ? "lightblue"
-                                                            : props.types[0] === "electric" ? "yellow"
-                                                                : props.types[0] === "ground" ? "brown"
-                                                                    : props.types[0] === "rock" ? "grey"
-                                                                        : props.types[0] === "psychic" ? "pink"
-                                                                            : props.types[0] === "ice" ? "lightblue"
-                                                                                : props.types[0] === "dragon" ? "purple"
-                                                                                    : props.types[0] === "fairy" ? "pink"
-                                                                                        : props.types[0] === "fighting" ? "red"
-                                                                                            : props.types[0] === "spectrum" ? "grey"
-                                                                                                : props.types[0] === "darkness" ? "black"
-                                                                                                    : props.types[0] === "steel" ? "grey"
-                                                                                                        : props.types[0] === "Inconnu" ? "grey" : "white",
-                            }}>{props.types[0]}</Button>
-                        <Button variant="outlined"
-                            sx={{
-                                color: "black",
-                                marginLeft: "5px",
-                                hidden: props.types[1] === undefined ? true : false,
-                                opacity: props.types[1] === undefined ? 0 : 1,
-                                border: props.types[1] === undefined ? 0 : 0,
-                                backgroundColor: props.types[1] === "grass" ? "green"
-                                    : props.types[1] === "fire" ? "red"
-                                        : props.types[1] === "water" ? "blue"
-                                            : props.types[1] === "bug" ? "yellow"
-                                                : props.types[1] === "normal" ? "grey"
-                                                    : props.types[1] === "poison" ? "purple"
-                                                        : props.types[1] === "flying" ? "lightblue"
-                                                            : props.types[1] === "electric" ? "yellow"
-                                                                : props.types[1] === "ground" ? "brown"
-                                                                    : props.types[1] === "rock" ? "grey"
-                                                                        : props.types[1] === "psychic" ? "pink"
-                                                                            : props.types[1] === "ice" ? "lightblue"
-                                                                                : props.types[1] === "dragon" ? "purple"
-                                                                                    : props.types[1] === "fairy" ? "pink"
-                                                                                        : props.types[1] === "fighting" ? "red"
-                                                                                            : props.types[1] === "spectrum" ? "grey"
-                                                                                                : props.types[1] === "darkness" ? "black"
-                                                                                                    : props.types[1] === "steel" ? "grey"
-                                                                                                        : props.types[1] === "Inconnu" ? "grey" : "white",
-                            }}>{props.types[1]}</Button>
-
-                            
-                        {/* <p>Height: {props.height}m</p>
-            <p>Weight: {props.weight}kg</p> */}
-
-                    </Typography>
-                </CardContent>
-            </Card>
-        </Link>
-    )
-}
-
-
-export default function List() {
-
-    return (
-        <div className="App-card">
-            <Pokédex />
-        </div>
+        <Grid container sx={{ justifyContent: 'center', alignItems: 'center'}}>            
+                {pokedex}            
+        </Grid>
     );
 }
+
+
+export default List;
