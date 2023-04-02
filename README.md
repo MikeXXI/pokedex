@@ -12,7 +12,7 @@ Le site a tendance a ne pas charger, il faut donc recharger la page pour que tou
 Gestions de la recherche par types ne se fait que en anglais pour le moment (ex: fire, water, grass, etc...)
 (Car appels API en anglais! Complexité du deuxième appel API pour récupérer les types dans d'autres langues!)
 
-CSS obligatoire pour balise <a> et pour fond body
+CSS obligatoire pour balise < a > et pour fond body
 
 
 
