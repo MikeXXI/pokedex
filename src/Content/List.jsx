@@ -17,13 +17,12 @@ function List({ pokemons, lang, dataType, search }) {
                 couleurType1={dataType[pokemon.types[0]].backgroundColor}
                 type2={pokemon.types[1] ? dataType[pokemon.types[1]].translations[lang] : undefined}
                 couleurType2={pokemon.types[1] ? dataType[pokemon.types[1]].backgroundColor : undefined}
-
             />)
         }
     })
     return (
-        <Grid container sx={{ justifyContent: 'center', alignItems: 'center'}}>            
-                {pokedex}            
+        <Grid container sx={{ justifyContent: 'center', alignItems: 'center' }}>
+            {pokedex}
         </Grid>
     );
 }

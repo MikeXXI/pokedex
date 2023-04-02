@@ -65,10 +65,9 @@ function App() {
             En cour de chargement ...
           </Box>
         </Grid> :
-
         <Grid>
           <Header selectLang={setLang} handleNameChange={setSearch} />
-          <List pokemons={pokemonData} lang={lang} dataType={typeTrad} search={search}/>
+          <List pokemons={pokemonData} lang={lang} dataType={typeTrad} search={search} />
         </Grid>
 
       }

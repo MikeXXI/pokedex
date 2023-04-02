@@ -41,7 +41,7 @@ export default function DialogCard() {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}
-            >
+        >
             <Card
                 sx={{
                     width: '600px',
@@ -82,7 +82,7 @@ export default function DialogCard() {
                             border: '1px solid black',
                         }}>
                         <img src={pokemon.image}
-                        alt={pokemon.image}/>
+                            alt={pokemon.image} />
                     </Box>
                 </Grid>
                 <Typography
